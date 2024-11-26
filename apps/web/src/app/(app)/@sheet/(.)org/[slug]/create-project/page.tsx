@@ -1,17 +1,16 @@
+import { ProjectForm } from '@/app/(app)/org/[slug]/create-project/_components/project-form'
 import { InterceptedSheetContent } from '@/components/intercepted-sheet-content'
 import { Sheet, SheetHeader, SheetTitle } from '@/components/ui/sheet'
-
-import { OrganizationForm } from '../../create-organization/_components/organization-form'
 
 export default async function page() {
   return (
     <Sheet defaultOpen>
       <InterceptedSheetContent>
         <SheetHeader>
-          <SheetTitle>Create organization</SheetTitle>
+          <SheetTitle>Create project</SheetTitle>
         </SheetHeader>
 
-        <OrganizationForm />
+        <ProjectForm />
       </InterceptedSheetContent>
     </Sheet>
   )

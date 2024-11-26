@@ -1,7 +1,7 @@
 import { roleSchema } from '@ff-saas/auth'
 import { z } from 'zod'
 
-export const organizationSchema = z.object({
+export const organization = z.object({
   id: z.string().uuid(),
   name: z.string().min(4, 'Please include at least 4 characters.'),
   domain: z
@@ -27,6 +27,9 @@ export const organizationSchema = z.object({
     .union([z.literal('on'), z.literal('off'), z.boolean()])
     .transform((value) => value === true || value === 'on')
     .default(false),
+  ownerId: z.string().uuid(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 })
 
 export const membershipSchema = z.object({
@@ -38,9 +41,13 @@ export const membershipSchema = z.object({
   }),
 })
 
+export const organizationSchema = z.object({
+  data: organization,
+})
+
 export const organizationsSchema = z.object({
   data: z.array(
-    organizationSchema.pick({
+    organization.pick({
       id: true,
       name: true,
       slug: true,
@@ -49,14 +56,22 @@ export const organizationsSchema = z.object({
   ),
 })
 
-export type Organization = z.infer<typeof organizationSchema>
+export type Organization = z.infer<typeof organization>
+export type GetOrganizationResponse = z.infer<typeof organizationSchema>
 export type GetOrganizationsResponse = z.infer<typeof organizationsSchema>
 export type GetMembershipResponse = z.infer<typeof membershipSchema>
 
 export type CreateOrganizationRequest = Pick<
-  z.infer<typeof organizationSchema>,
+  z.infer<typeof organization>,
   'name' | 'domain' | 'shouldAttachUsersByDomain'
 >
 export type CreateOrganizationResponse = {
   organizationId: string
+}
+
+export type UpdateOrganizationRequest = Pick<
+  z.infer<typeof organization>,
+  'name' | 'domain' | 'shouldAttachUsersByDomain'
+> & {
+  orgSlug: string
 }
