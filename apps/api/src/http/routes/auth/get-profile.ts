@@ -20,7 +20,7 @@ export async function getProfile(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           response: {
             200: z.object({
-              user: z.object({
+              data: z.object({
                 id: z.string().uuid(),
                 name: z.string().nullable(),
                 email: z.string().email(),
@@ -49,7 +49,7 @@ export async function getProfile(app: FastifyInstance) {
           throw new BadRequestError('User not found.')
         }
 
-        return reply.send({ user })
+        return reply.send({ data: user })
       },
     )
 }

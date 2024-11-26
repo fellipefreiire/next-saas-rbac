@@ -10,21 +10,16 @@ export async function getOrganizations(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       '/organizations',
       {
         schema: {
           tags: ['Organizations'],
           summary: 'Get organizations where user is a mbmer',
           security: [{ bearerAuth: [] }],
-          body: z.object({
-            name: z.string(),
-            domain: z.string().nullish(),
-            shouldAttachUsersByDomain: z.boolean().optional(),
-          }),
           response: {
             201: z.object({
-              organizations: z.array(
+              data: z.array(
                 z.object({
                   id: z.string().uuid(),
                   name: z.string(),
@@ -73,7 +68,7 @@ export async function getOrganizations(app: FastifyInstance) {
         )
 
         return {
-          organizations: organizationsWithUserRole,
+          data: organizationsWithUserRole,
         }
       },
     )

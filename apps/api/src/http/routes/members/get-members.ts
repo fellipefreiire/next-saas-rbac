@@ -25,7 +25,7 @@ export async function getMembers(app: FastifyInstance) {
           }),
           response: {
             200: z.object({
-              members: z.array(
+              data: z.array(
                 z.object({
                   id: z.string().uuid(),
                   userId: z.string().uuid(),
@@ -88,7 +88,7 @@ export async function getMembers(app: FastifyInstance) {
         )
 
         return reply.send({
-          members: membersWithRoles,
+          data: membersWithRoles,
         })
       },
     )

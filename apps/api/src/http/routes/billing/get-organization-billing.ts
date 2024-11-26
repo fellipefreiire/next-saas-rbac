@@ -29,7 +29,7 @@ export async function getOrganizationBilling(app: FastifyInstance) {
           }),
           response: {
             200: z.object({
-              billing: z.object({
+              data: z.object({
                 seats: z.object({
                   amount: z.number(),
                   unit: z.number(),
@@ -76,7 +76,7 @@ export async function getOrganizationBilling(app: FastifyInstance) {
         ])
 
         return {
-          billing: {
+          data: {
             seats: {
               amount: amountOfMembers,
               unit: 10,

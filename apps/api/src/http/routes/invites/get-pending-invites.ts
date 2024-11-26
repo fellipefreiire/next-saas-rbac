@@ -21,7 +21,7 @@ export async function getPendingInvite(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           response: {
             200: z.object({
-              invites: z.array(
+              data: z.array(
                 z.object({
                   id: z.string().uuid(),
                   role: roleSchema,
@@ -82,7 +82,7 @@ export async function getPendingInvite(app: FastifyInstance) {
             email: user.email,
           },
         })
-        return { invites }
+        return { data: invites }
       },
     )
 }

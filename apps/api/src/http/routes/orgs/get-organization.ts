@@ -8,7 +8,7 @@ export async function getOrganization(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       '/organizations/:slug',
       {
         schema: {
@@ -18,14 +18,9 @@ export async function getOrganization(app: FastifyInstance) {
           params: z.object({
             slug: z.string(),
           }),
-          body: z.object({
-            name: z.string(),
-            domain: z.string().nullish(),
-            shouldAttachUsersByDomain: z.boolean().optional(),
-          }),
           response: {
             201: z.object({
-              organization: z.object({
+              data: z.object({
                 id: z.string().uuid(),
                 name: z.string(),
                 slug: z.string(),
@@ -45,7 +40,7 @@ export async function getOrganization(app: FastifyInstance) {
         const { organization } = await request.getUserMembership(slug)
 
         return {
-          organization,
+          data: organization,
         }
       },
     )

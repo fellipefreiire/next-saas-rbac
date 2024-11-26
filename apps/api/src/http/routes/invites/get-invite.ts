@@ -20,7 +20,7 @@ export async function getInvite(app: FastifyInstance) {
         }),
         response: {
           201: z.object({
-            invite: z.object({
+            data: z.object({
               id: z.string().uuid(),
               email: z.string().email(),
               role: roleSchema,
@@ -74,7 +74,7 @@ export async function getInvite(app: FastifyInstance) {
         throw new BadRequestError('Invite not found.')
       }
 
-      return { invite }
+      return { data: invite }
     },
   )
 }
