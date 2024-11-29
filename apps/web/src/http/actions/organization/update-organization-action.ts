@@ -5,11 +5,11 @@ import { revalidateTag } from 'next/cache'
 
 import { getCurrentOrg } from '@/auth/auth'
 import { updateOrganization } from '@/http/apis/organization/update-organization'
-import { organization } from '@/http/models/organization.model'
+import { organizationSchema } from '@/http/models/organization.model'
 
 export async function updateOrganizationAction(data: FormData) {
   const currentOrg = await getCurrentOrg()
-  const result = organization
+  const result = organizationSchema
     .pick({
       name: true,
       domain: true,

@@ -1,7 +1,7 @@
 import { roleSchema } from '@ff-saas/auth'
 import { z } from 'zod'
 
-export const organization = z.object({
+export const organizationSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(4, 'Please include at least 4 characters.'),
   domain: z
@@ -33,27 +33,10 @@ export const organization = z.object({
 })
 
 export const membershipSchema = z.object({
-  data: z.object({
-    id: z.string().uuid(),
-    role: roleSchema,
-    userId: z.string().uuid(),
-    organizationId: z.string().uuid(),
-  }),
-})
-
-export const organizationSchema = z.object({
-  data: organization,
-})
-
-export const organizationsSchema = z.object({
-  data: z.array(
-    organization.pick({
-      id: true,
-      name: true,
-      slug: true,
-      avatarUrl: true,
-    }),
-  ),
+  id: z.string().uuid(),
+  role: roleSchema,
+  userId: z.string().uuid(),
+  organizationId: z.string().uuid(),
 })
 
 export const memberSchema = z.object({
@@ -65,11 +48,7 @@ export const memberSchema = z.object({
   avatarUrl: z.string().url().nullable(),
 })
 
-export const membersSchema = z.object({
-  data: z.array(memberSchema),
-})
-
-export type Organization = z.infer<typeof organization>
+export type Organization = z.infer<typeof organizationSchema>
 
 export type GetOrganizationRequest = {
   orgSlug: string
@@ -89,11 +68,11 @@ export type RemoveMemberRequest = {
   memberId: string
 }
 export type CreateOrganizationRequest = Pick<
-  z.infer<typeof organization>,
+  z.infer<typeof organizationSchema>,
   'name' | 'domain' | 'shouldAttachUsersByDomain'
 >
 export type UpdateOrganizationRequest = Pick<
-  z.infer<typeof organization>,
+  z.infer<typeof organizationSchema>,
   'name' | 'domain' | 'shouldAttachUsersByDomain'
 > & {
   orgSlug: string
@@ -102,11 +81,19 @@ export type ShutdownOrganizationRequest = {
   orgSlug: string
 }
 
-export type GetOrganizationResponse = z.infer<typeof organizationSchema>
-export type GetOrganizationsResponse = z.infer<typeof organizationsSchema>
-export type GetMembershipResponse = z.infer<typeof membershipSchema>
+export type GetOrganizationResponse = {
+  data: z.infer<typeof organizationSchema>
+}
+export type GetOrganizationsResponse = {
+  data: z.infer<typeof organizationSchema>[]
+}
+export type GetMembershipResponse = {
+  data: z.infer<typeof membershipSchema>
+}
 export type GetMemberResponse = z.infer<typeof memberSchema>
-export type GetMembersResponse = z.infer<typeof membersSchema>
+export type GetMembersResponse = {
+  data: z.infer<typeof memberSchema>[]
+}
 export type CreateOrganizationResponse = {
   organizationId: string
 }

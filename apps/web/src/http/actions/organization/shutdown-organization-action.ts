@@ -9,7 +9,7 @@ import { shutdownOrganization } from '@/http/apis/organization/shutdown-organiza
 export async function shutdownOrganizationAction() {
   const currentOrg = await getCurrentOrg()
 
-  await shutdownOrganization(currentOrg!)
+  await shutdownOrganization({ orgSlug: currentOrg! })
   revalidateTag('organizations')
   redirect('/')
 }

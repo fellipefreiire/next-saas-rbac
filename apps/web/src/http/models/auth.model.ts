@@ -12,12 +12,10 @@ export const authSchema = z.object({
 })
 
 export const userSchema = z.object({
-  data: z.object({
-    id: z.string().uuid(),
-    name: z.string().nullable(),
-    email: z.string().email(),
-    avatarUrl: z.string().url().nullable(),
-  }),
+  id: z.string().uuid(),
+  name: z.string().nullable(),
+  email: z.string().email(),
+  avatarUrl: z.string().url().nullable(),
 })
 
 export type SignInWithPasswordRequest = Pick<
@@ -36,4 +34,6 @@ export type SignUpRequest = Pick<
   'name' | 'email' | 'password'
 >
 
-export type GetProfileResponse = z.infer<typeof userSchema>
+export type GetProfileResponse = {
+  data: z.infer<typeof userSchema>
+}

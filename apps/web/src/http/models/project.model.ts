@@ -16,10 +16,6 @@ export const projectSchema = z.object({
   }),
 })
 
-export const projectsSchema = z.object({
-  data: z.array(projectSchema),
-})
-
 export type Project = z.infer<typeof projectSchema>
 
 export type GetProjectRequest = {
@@ -32,7 +28,9 @@ export type CreateProjectRequest = Pick<
   orgSlug: string
 }
 
-export type GetProjectsResponse = z.infer<typeof projectsSchema>
+export type GetProjectsResponse = {
+  data: z.infer<typeof projectSchema>[]
+}
 export type CreateProjectResponse = {
   projectId: string
 }

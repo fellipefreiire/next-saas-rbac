@@ -4,10 +4,10 @@ import { HTTPError } from 'ky'
 import { revalidateTag } from 'next/cache'
 
 import { createOrganization } from '@/http/apis/organization/create-organization'
-import { organization } from '@/http/models/organization.model'
+import { organizationSchema } from '@/http/models/organization.model'
 
 export async function createOrganizationAction(data: FormData) {
-  const result = organization
+  const result = organizationSchema
     .pick({
       name: true,
       domain: true,
