@@ -12,7 +12,7 @@ export async function getOrganizationBilling(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       '/organizations/:slug/billing',
       {
         schema: {
@@ -21,11 +21,6 @@ export async function getOrganizationBilling(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
-          }),
-          body: z.object({
-            name: z.string(),
-            domain: z.string().nullish(),
-            shouldAttachUsersByDomain: z.boolean().optional(),
           }),
           response: {
             200: z.object({

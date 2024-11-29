@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/use-form-state'
-import { createProjectAction } from '@/http/actions/project.actions'
+import { createProjectAction } from '@/http/actions/project/create-project-action'
 import { queryClient } from '@/lib/react-query'
 
 export function ProjectForm() {

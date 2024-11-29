@@ -1,7 +1,7 @@
 import { XCircle } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { shutdownOrganizationAction } from '@/http/actions/organization.actions'
+import { shutdownOrganizationAction } from '@/http/actions/organization/shutdown-organization-action'
 
 export function ShutdownOrganizationButton() {
   return (

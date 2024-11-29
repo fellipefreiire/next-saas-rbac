@@ -2,8 +2,8 @@ import { defineAbilityFor } from '@ff-saas/auth'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { authApi } from '@/http/apis/auth.api'
-import { organizationApi } from '@/http/apis/organization.api'
+import { getProfile } from '@/http/apis/auth/get-profile'
+import { getMembership } from '@/http/apis/organization/get-membership'
 
 export async function isAuthenticated() {
   const cookieStore = await cookies()
@@ -25,7 +25,7 @@ export async function getCurrentMembership() {
     return null
   }
 
-  const { data: membership } = await organizationApi.getMembership(org)
+  const { data: membership } = await getMembership({ orgSlug: org })
 
   return membership
 }
@@ -54,7 +54,7 @@ export async function auth() {
   }
 
   try {
-    const { data } = await authApi.getProfile()
+    const { data } = await getProfile()
 
     return { user: data }
   } catch {}

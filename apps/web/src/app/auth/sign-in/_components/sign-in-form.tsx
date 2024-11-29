@@ -3,7 +3,7 @@
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import githubIcon from '@/assets/github-icon.svg'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -12,13 +12,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useFormState } from '@/hooks/use-form-state'
-import {
-  signInWithEmailAndPasswordAction,
-  signInWithGithubRedirectAction,
-} from '@/http/actions/auth.actions'
+import { signInWithEmailAndPasswordAction } from '@/http/actions/auth/sign-in-with-email-and-password-action'
+import { signInWithGithubRedirectAction } from '@/http/actions/auth/sign-in-with-github-redirect-action'
 
 export function SignInForm() {
   const { push } = useRouter()
+  const searchParams = useSearchParams()
 
   const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
     signInWithEmailAndPasswordAction,
@@ -39,7 +38,12 @@ export function SignInForm() {
         )}
         <div className="space-y-1">
           <Label htmlFor="email">E-mail</Label>
-          <Input name="email" type="text" id="email" />
+          <Input
+            name="email"
+            type="text"
+            id="email"
+            defaultValue={searchParams.get('email') ?? ''}
+          />
 
           {errors?.email && (
             <p className="text-xs font-medium text-red-500 dark:text-red-400">

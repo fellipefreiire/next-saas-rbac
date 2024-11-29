@@ -11,7 +11,7 @@ export async function acceptInvite(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .get(
+    .post(
       '/invites/:inviteId/accept',
       {
         schema: {

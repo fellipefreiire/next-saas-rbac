@@ -21,8 +21,10 @@ export const projectsSchema = z.object({
 })
 
 export type Project = z.infer<typeof projectSchema>
-export type GetProjectsResponse = z.infer<typeof projectsSchema>
 
+export type GetProjectRequest = {
+  orgSlug: string
+}
 export type CreateProjectRequest = Pick<
   z.infer<typeof projectSchema>,
   'name' | 'description'
@@ -30,6 +32,7 @@ export type CreateProjectRequest = Pick<
   orgSlug: string
 }
 
+export type GetProjectsResponse = z.infer<typeof projectsSchema>
 export type CreateProjectResponse = {
   projectId: string
 }

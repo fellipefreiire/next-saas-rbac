@@ -5,7 +5,7 @@ import { ChevronsUpDown, Loader2, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { projectApi } from '@/http/apis/project.api'
+import { getProjects } from '@/http/apis/project/get-projects'
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -27,7 +27,7 @@ export function ProjectSwitcher() {
 
   const { data, isLoading } = useQuery({
     queryKey: [orgSlug, 'projects'],
-    queryFn: () => projectApi.getProjects(orgSlug),
+    queryFn: () => getProjects({ orgSlug }),
     enabled: !!orgSlug,
   })
 

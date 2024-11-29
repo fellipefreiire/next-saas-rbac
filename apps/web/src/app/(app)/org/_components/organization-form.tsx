@@ -8,10 +8,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from '@/hooks/use-form-state'
-import {
-  createOrganizationAction,
-  updateOrganizationAction,
-} from '@/http/actions/organization.actions'
+import { createOrganizationAction } from '@/http/actions/organization/create-organization-action'
+import { updateOrganizationAction } from '@/http/actions/organization/update-organization-action'
 import type { Organization } from '@/http/models/organization.model'
 
 type OrganizationFormProps = {

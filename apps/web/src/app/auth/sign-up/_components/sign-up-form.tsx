@@ -12,10 +12,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useFormState } from '@/hooks/use-form-state'
-import {
-  signInWithGithubRedirectAction,
-  signUpAction,
-} from '@/http/actions/auth.actions'
+import { signInWithGithubRedirectAction } from '@/http/actions/auth/sign-in-with-github-redirect-action'
+import { signUpAction } from '@/http/actions/auth/sign-up-action'
 
 export function SignUpForm() {
   const { push } = useRouter()

@@ -3,9 +3,8 @@
 import { HTTPError } from 'ky'
 
 import { getCurrentOrg } from '@/auth/auth'
-
-import { projectApi } from '../apis/project.api'
-import { projectSchema } from '../models/project.model'
+import { createProject } from '@/http/apis/project/create-projects'
+import { projectSchema } from '@/http/models/project.model'
 
 export async function createProjectAction(data: FormData) {
   const result = projectSchema
@@ -26,7 +25,7 @@ export async function createProjectAction(data: FormData) {
   const orgSlug = await getCurrentOrg()
 
   try {
-    await projectApi.createProject({
+    await createProject({
       name,
       description,
       orgSlug: orgSlug!,

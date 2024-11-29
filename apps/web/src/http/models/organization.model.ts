@@ -56,22 +56,57 @@ export const organizationsSchema = z.object({
   ),
 })
 
-export type Organization = z.infer<typeof organization>
-export type GetOrganizationResponse = z.infer<typeof organizationSchema>
-export type GetOrganizationsResponse = z.infer<typeof organizationsSchema>
-export type GetMembershipResponse = z.infer<typeof membershipSchema>
+export const memberSchema = z.object({
+  id: z.string().uuid(),
+  userId: z.string().uuid(),
+  role: roleSchema,
+  name: z.string().nullable(),
+  email: z.string().email(),
+  avatarUrl: z.string().url().nullable(),
+})
 
+export const membersSchema = z.object({
+  data: z.array(memberSchema),
+})
+
+export type Organization = z.infer<typeof organization>
+
+export type GetOrganizationRequest = {
+  orgSlug: string
+}
+export type GetMembershipRequest = {
+  orgSlug: string
+}
+export type GetMembersRequest = {
+  orgSlug: string
+}
+export type UpdateMemberRequest = Pick<z.infer<typeof memberSchema>, 'role'> & {
+  orgSlug: string
+  memberId: string
+}
+export type RemoveMemberRequest = {
+  orgSlug: string
+  memberId: string
+}
 export type CreateOrganizationRequest = Pick<
   z.infer<typeof organization>,
   'name' | 'domain' | 'shouldAttachUsersByDomain'
 >
-export type CreateOrganizationResponse = {
-  organizationId: string
-}
-
 export type UpdateOrganizationRequest = Pick<
   z.infer<typeof organization>,
   'name' | 'domain' | 'shouldAttachUsersByDomain'
 > & {
   orgSlug: string
+}
+export type ShutdownOrganizationRequest = {
+  orgSlug: string
+}
+
+export type GetOrganizationResponse = z.infer<typeof organizationSchema>
+export type GetOrganizationsResponse = z.infer<typeof organizationsSchema>
+export type GetMembershipResponse = z.infer<typeof membershipSchema>
+export type GetMemberResponse = z.infer<typeof memberSchema>
+export type GetMembersResponse = z.infer<typeof membersSchema>
+export type CreateOrganizationResponse = {
+  organizationId: string
 }
